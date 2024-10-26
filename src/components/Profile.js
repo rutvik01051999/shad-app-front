@@ -24,7 +24,7 @@ const Profile = () => {
   const [cities, setCities] = useState([]);  // State to store the list of countries
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState('');
-
+  const [message, setMessage] = useState('');
 
   // State to store form data
   const [formData, setFormData] = useState({
@@ -80,8 +80,8 @@ const Profile = () => {
   }, []);  // The empty array ensures this effect runs once when the component mounts
 
 
-   // Fetch the list of countries when the component mounts
-   useEffect(() => {
+  // Fetch the list of countries when the component mounts
+  useEffect(() => {
     const fetchGenders = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/gender', {
@@ -187,11 +187,35 @@ const Profile = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    alert('Form submitted');
     // Perform form submission logic, like sending data to API
 
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/profile/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`  // Pass the token in the header
+        },
+        body: JSON.stringify({
+          formData,
+        }),
+      });
 
+      if (response.ok) {
+        const data = await response.json();
+        setMessage('Data stored successfully!');
+        console.log(data);
+      } else {
+        setMessage('Failed to store data.');
+        console.log('Error:', response.statusText);
+      }
+    } catch (error) {
+      setMessage('An error occurred.');
+      console.error('Error:', error);
+    }
 
 
     console.log('Form submitted:', formData);
@@ -252,11 +276,11 @@ const Profile = () => {
 
                 <div className="text-center">
                   <div className="file-input-wrapper">
-                    <img id="profileImagePreview" src="https://bootdey.com/img/Content/avatar/avatar6.png" className="profile-image" alt="Profile Image"  />
+                    <img id="profileImagePreview" src="https://bootdey.com/img/Content/avatar/avatar6.png" className="profile-image" alt="Profile Image" />
                     <div className="upload-btn">
                       <i className="fas fa-camera"></i>
                     </div>
-                    <input type="file" id="profileImageInput" accept="image/*" aria-label="Choose Profile Image"  onChange={handleFileChange} name="image" />
+                    <input type="file" id="profileImageInput" accept="image/*" aria-label="Choose Profile Image" onChange={handleFileChange} name="image" />
                   </div>
                 </div>
 
@@ -271,7 +295,7 @@ const Profile = () => {
 
                 <div className="form-group">
                   <label htmlFor="last_name">Bio</label>
-                  <textarea type="text" className="form-control" name="bio" onChange={handleChange} id="last_name" placeholder="Enter bio" /> 
+                  <textarea type="text" className="form-control" name="bio" onChange={handleChange} id="last_name" placeholder="Enter bio" />
                 </div>
 
                 <select value={selectedGender} onChange={handleGenderChange} name="gender">
