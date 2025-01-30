@@ -1,0 +1,26 @@
+.custom-navbar {
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    padding: 10px 20px;
+  }
+  
+  .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: white !important;
+  }
+  
+  .nav-link {
+    font-size: 18px;
+    margin: 0 12px;
+    color: white !important;
+    transition: 0.3s;
+  }
+  
+  .nav-link:hover {
+    color: #ffde59 !important;
+  }
+  
+  .navbar-toggler-icon {
+    background-color: white !important; /* Icon color */
+  }
+  

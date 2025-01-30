@@ -6,6 +6,7 @@ import About from "../src/components//About";
 import Contact from "../src/components//Contact";
 import Login from "../src/components/Login";
 import Profile from "../src/components/Profile";
+import NotFound from "../src/components/NotFound";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -40,6 +41,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
           <Route path="contact" element={<Contact />} />
           <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+          <Route path="notfound" element={<NotFound />} />
 
         </Route>
       </Routes>

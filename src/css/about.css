@@ -1,0 +1,48 @@
+.about-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .about-hero {
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    color: white;
+    padding: 60px 20px;
+  }
+  
+  .about-hero h1 {
+    font-size: 42px;
+  }
+  
+  .about-content {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: auto;
+    text-align: left;
+  }
+  
+  .about-content h2 {
+    color: #ff416c;
+  }
+  
+  .about-content p {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  
+  .about-content ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .about-content li {
+    font-size: 18px;
+    margin: 8px 0;
+  }
+  
+  .footer {
+    background: #ff416c;
+    color: white;
+    padding: 20px;
+    margin-top: 40px;
+  }
+  
