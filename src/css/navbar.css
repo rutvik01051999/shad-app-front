@@ -23,4 +23,11 @@
   .navbar-toggler-icon {
     background-color: white !important; /* Icon color */
   }
+  .nav-link.active {
+    font-weight: bold;
+    color: #f39c12; /* Active link color */
+  }
   
+  .nav-link:hover {
+    color: #f1f1f1;
+  }
