@@ -31,3 +31,11 @@
   .nav-link:hover {
     color: #f1f1f1;
   }
+  .user-profile{
+    margin-top:5px;
+  }
+  .active{
+    border-radius: 12px;
+    background-color: white !important;
+    color: red !important;
+  }
