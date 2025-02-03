@@ -104,7 +104,9 @@ const Home = () => {
       )}
 
       <div className="home-container">
-
+     
+     <div className="row">
+      <div className="col-sm-4">
       <div className="swipe-card-container">
       <div
         className="swipe-card"
@@ -147,7 +149,13 @@ const Home = () => {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+      </div>
+      <div className="col-sm-4">
+        ddd
+        </div>
+     </div>
+     
       </div>
     </>
   );

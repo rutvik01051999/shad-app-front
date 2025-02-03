@@ -7,6 +7,8 @@ import Contact from "../src/components//Contact";
 import Login from "../src/components/Login";
 import Profile from "../src/components/Profile";
 import NotFound from "../src/components/NotFound";
+import Signup from "../src/components/Signup";
+import OtpVerification from "../src/components/OtpVerification";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -32,14 +34,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 /******  eae516a5-aefe-4cfc-8e6e-d76c5e3a9ad5  *******/function App() {
   return (
     <Router>
+     
       
       <Routes>
+      <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
+       <Route path="/signup" element={<Signup/>} />
+       <Route path="/verify-otp" element={<OtpVerification/>} />
+      
         {/* Define the layout and its nested routes */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} /> {/* Default route for the layout */}
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
+          
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="notfound" element={<NotFound />} />
 

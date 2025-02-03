@@ -86,8 +86,8 @@ const Profile = () => {
     const fetchGenders = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/gender', {
-              headers: {
-                Authorization: `Bearer ${token}`  // Pass the token in the header
+          headers: {
+            Authorization: `Bearer ${token}`  // Pass the token in the header
           }
         });
         setGenders(response.data.data);
@@ -106,10 +106,10 @@ const Profile = () => {
         try {
           const response = await axios.get(
             `http://127.0.0.1:8000/api/state?country=${formData.country_id}`, {
-              headers: {
-                Authorization: `Bearer ${token}`  // Pass the token in the header
-              }
+            headers: {
+              Authorization: `Bearer ${token}`  // Pass the token in the header
             }
+          }
           );
           setStates(response.data.data);
           console.log(response.data.data);
@@ -129,10 +129,10 @@ const Profile = () => {
         try {
           const response = await axios.get(
             `http://127.0.0.1:8000/api/city?state=${formData.state_id}`, {
-              headers: {
-                Authorization: `Bearer ${token}`  // Pass the token in the header
-              }
+            headers: {
+              Authorization: `Bearer ${token}`  // Pass the token in the header
             }
+          }
           );
           setCities(response.data.data);
           console.log(response.data.data);
@@ -214,133 +214,201 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-form-container">
-    <div className="row">
-      <h2>Edit Profile</h2>
+    <div>
+      <div className="about-container">
+        <section className="about-hero">
+          <h1>My Profile</h1>
+          <p>Connecting hearts worldwide ❤️</p>
+        </section>
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>First Name</label>
-          <input
-            type="text"
-            name="first_name"
-            value={formData.first_name}
-            onChange={handleChange}
-          />
-          {errors.first_name && <span className="error">{errors.first_name}</span>}
-        </div>
+        <section className="about-content">
 
-        <div className="form-group">
-          <label>Last Name</label>
-          <input
-            type="text"
-            name="last_name"
-            value={formData.last_name}
-            onChange={handleChange}
-          />
-          {errors.last_name && <span className="error">{errors.last_name}</span>}
-        </div>
+        </section>
+      </div>
 
-        <div className="form-group">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {errors.email && <span className="error">{errors.email}</span>}
-        </div>
 
-        <div className="form-group">
-          <label>Gender</label>
-          <select
-            name="gender_id"
-            value={formData.gender_id}
-            onChange={handleChange}
-          >
-            <option value="">Select Gender</option>
-            {genders.map((gender) => (
-              <option key={gender.id} value={gender.id}>
-                {gender.name}
-              </option>
-            ))}
-          </select>
-          {errors.gender_id && <span className="error">{errors.gender_id}</span>}
-        </div>
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-lg-8 col-md-10 col-sm-12">
+            <div className="profile-form-container p-4 shadow rounded">
+              {/* Profile Image Preview */}
+              <div className="text-center mb-4">
+                <div className="profile-image-container">
+                  {previewImage ? (
+                    <>
+                      <img
+                        src={previewImage}
+                        alt="Profile Preview"
+                        className="profile-image"
+                      />
+                      <button
+                        type="button"
+                        className="btn btn-danger btn-sm mt-2"
+                        onClick={handleRemoveImage}
+                      >
+                        Remove
+                      </button>
+                    </>
+                  ) : (
+                    <div className="profile-placeholder">+</div>
+                  )}
+                </div>
+              </div>
 
-        <div className="form-group">
-          <label>Country</label>
-          <select
-            name="country_id"
-            value={formData.country_id}
-            onChange={handleChange}
-          >
-            <option value="">Select Country</option>
-            {countries.map((country) => (
-              <option key={country.id} value={country.id}>
-                {country.name}
-              </option>
-            ))}
-          </select>
-          {errors.country_id && <span className="error">{errors.country_id}</span>}
-        </div>
+              <h2 className="text-center mb-4">Edit Profile</h2>
 
-        {formData.country_id && (
-          <div className="form-group">
-            <label>State</label>
-            <select
-              name="state_id"
-              value={formData.state_id}
-              onChange={handleChange}
-            >
-              <option value="">Select State</option>
-              {states.map((state) => (
-                <option key={state.id} value={state.id}>
-                  {state.name}
-                </option>
-              ))}
-            </select>
-            {errors.state_id && <span className="error">{errors.state_id}</span>}
-          </div>
-        )}
+              <form onSubmit={handleSubmit}>
+                <div className="row">
+                  {/* First Name */}
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label>First Name</label>
+                      <input
+                        type="text"
+                        name="first_name"
+                        value={formData.first_name}
+                        onChange={handleChange}
+                        className="form-control"
+                      />
+                      {errors.first_name && <small className="text-danger">{errors.first_name}</small>}
+                    </div>
+                  </div>
 
-        {formData.state_id && (
-          <div className="form-group">
-            <label>City</label>
-            <select
-              name="city_id"
-              value={formData.city_id}
-              onChange={handleChange}
-            >
-              <option value="">Select City</option>
-              {cities.map((city) => (
-                <option key={city.id} value={city.id}>
-                  {city.name}
-                </option>
-              ))}
-            </select>
-            {errors.city_id && <span className="error">{errors.city_id}</span>}
-          </div>
-        )}
+                  {/* Last Name */}
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label>Last Name</label>
+                      <input
+                        type="text"
+                        name="last_name"
+                        value={formData.last_name}
+                        onChange={handleChange}
+                        className="form-control"
+                      />
+                      {errors.last_name && <small className="text-danger">{errors.last_name}</small>}
+                    </div>
+                  </div>
 
-        <div className="form-group">
-          <label>Profile Image</label>
-          <input type="file" name="profile_image" onChange={handleImageChange} />
-          {previewImage && (
-            <div className="image-preview">
-              <img src={previewImage} alt="Profile Preview" />
-              <button type="button" onClick={handleRemoveImage}>
-                Remove
-              </button>
+                  {/* Email */}
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <label>Email</label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="form-control"
+                      />
+                      {errors.email && <small className="text-danger">{errors.email}</small>}
+                    </div>
+                  </div>
+
+                  {/* Gender */}
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label>Gender</label>
+                      <select
+                        name="gender_id"
+                        value={formData.gender_id}
+                        onChange={handleChange}
+                        className="form-control"
+                      >
+                        <option value="">Select Gender</option>
+                        {genders.map((gender) => (
+                          <option key={gender.id} value={gender.id}>
+                            {gender.name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.gender_id && <small className="text-danger">{errors.gender_id}</small>}
+                    </div>
+                  </div>
+
+                  {/* Country */}
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label>Country</label>
+                      <select
+                        name="country_id"
+                        value={formData.country_id}
+                        onChange={handleChange}
+                        className="form-control"
+                      >
+                        <option value="">Select Country</option>
+                        {countries.map((country) => (
+                          <option key={country.id} value={country.id}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.country_id && <small className="text-danger">{errors.country_id}</small>}
+                    </div>
+                  </div>
+
+                  {/* State (Conditional Rendering) */}
+                  {formData.country_id && (
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>State</label>
+                        <select
+                          name="state_id"
+                          value={formData.state_id}
+                          onChange={handleChange}
+                          className="form-control"
+                        >
+                          <option value="">Select State</option>
+                          {states.map((state) => (
+                            <option key={state.id} value={state.id}>
+                              {state.name}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.state_id && <small className="text-danger">{errors.state_id}</small>}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* City (Conditional Rendering) */}
+                  {formData.state_id && (
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>City</label>
+                        <select
+                          name="city_id"
+                          value={formData.city_id}
+                          onChange={handleChange}
+                          className="form-control"
+                        >
+                          <option value="">Select City</option>
+                          {cities.map((city) => (
+                            <option key={city.id} value={city.id}>
+                              {city.name}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.city_id && <small className="text-danger">{errors.city_id}</small>}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Profile Image Upload */}
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <label>Profile Image</label>
+                      <input type="file" name="profile_image" onChange={handleImageChange} className="form-control" />
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="col-md-12 text-center">
+                    <button type="submit" className="btn btn-danger mt-3 px-5">Save</button>
+                  </div>
+                </div>
+              </form>
             </div>
-          )}
+          </div>
         </div>
-
-        <button type="submit" className="submit-button">
-          Save
-        </button>
-      </form>
       </div>
     </div>
   );
