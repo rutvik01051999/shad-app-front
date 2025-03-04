@@ -52,7 +52,7 @@ const Profile = () => {
           name: userData.name || '',
           active: userData.active || true,
         });
-        setPreviewImage(userData.profile_image_url || null);
+        setPreviewImage('http://127.0.0.1:8000/storage/' + userData.profile_image || null);
       } catch (error) {
         console.error('Error fetching user details:', error);
       } finally {
@@ -255,7 +255,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              <h2 className="text-center mb-4">Edit Profile</h2>
+              {/* <h2 className="text-center mb-4">Edit Profile</h2> */}
 
               <form onSubmit={handleSubmit}>
                 <div className="row">

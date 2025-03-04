@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom"; // Use useLocation to get the state data
+import "../css/login.css";
+import axios from 'axios';
 
 function OtpVerification() {
   const [otp, setOtp] = useState("");
@@ -21,40 +23,56 @@ function OtpVerification() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const apiUrl = 'http://127.0.0.1:8000/api/verify-email/otp';
+
     if (otp.length !== 6) {
       setErrors("OTP must be 6 digits long.");
       return;
     }
 
+    try {
+      const response = axios.post(apiUrl, {
+        email: formData.email,
+        otp: otp,
+        name: formData.name,
+        password: formData.password
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+
     // Here, you would send the OTP to your backend for verification
     // Assuming OTP verification is successful:
-    navigate("/dashboard"); // Redirect to the dashboard or main page after OTP verification
+    navigate("/home"); // Redirect to the dashboard or main page after OTP verification
   };
 
   return (
-    <div className="otp-verification-container">
+    <div className="otp-verification-container login-container">
       <h2>Verify OTP</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Enter OTP:</label>
+
+      <div className="form-group">
           <input
             type="text"
             value={otp}
             onChange={handleChange}
-            maxLength={6}
-            placeholder="Enter 6-digit OTP"
+            required
           />
-          {errors && <p style={{ color: "red" }}>{errors}</p>}
+        {errors && <p style={{ color: "red" }}>{errors}</p>}
         </div>
-        <button type="submit">Verify OTP</button>
+
+        
+  
+        <button className="login-button" type="submit">Verify OTP</button>
       </form>
 
       {/* You can display the passed data */}
-      <div>
+      {/* <div>
         <h3>Signup Details</h3>
         <p>Name: {formData.name}</p>
         <p>Email: {formData.email}</p>
-      </div>
+      </div> */}
     </div>
   );
 }

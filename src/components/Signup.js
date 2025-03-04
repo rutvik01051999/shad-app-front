@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import "../css/login.css";
+import axios from 'axios';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -33,6 +34,18 @@ function Signup() {
     if (Object.keys(validationErrors).length === 0) {
       // Send the signup data to the backend (e.g., using an API call)
       // After successful signup, navigate to the OTP confirmation page
+
+      //call api to store email and otp of user
+      const apiUrl = 'http://127.0.0.1:8000/api/send-email/otp';
+      //end of api call
+      try {
+        const response = axios.post(apiUrl, {
+          email: formData.email,
+        });
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
       navigate("/verify-otp",{ state: formData }); // Use navigate to redirect
     } else {
       setErrors(validationErrors);
@@ -86,6 +99,8 @@ function Signup() {
           )}
         </div>
         <button type="submit" className="login-button">Next</button>
+        <br></br><br></br>
+        <p>Already have an account? <a href="/login">Login</a></p>
       </form>
     </div>
   );
