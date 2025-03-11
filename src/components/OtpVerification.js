@@ -21,7 +21,7 @@ function OtpVerification() {
     setOtp(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const apiUrl = 'http://127.0.0.1:8000/api/verify-email/otp';
 
@@ -31,12 +31,15 @@ function OtpVerification() {
     }
 
     try {
-      const response = axios.post(apiUrl, {
+      const response = await axios.post(apiUrl, {
         email: formData.email,
         otp: otp,
         name: formData.name,
         password: formData.password
       });
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -44,7 +47,7 @@ function OtpVerification() {
 
     // Here, you would send the OTP to your backend for verification
     // Assuming OTP verification is successful:
-    navigate("/home"); // Redirect to the dashboard or main page after OTP verification
+    navigate("/profile"); // Redirect to the dashboard or main page after OTP verification
   };
 
   return (

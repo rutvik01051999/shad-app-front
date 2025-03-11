@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 import "../css/swipecard.css";
 import "../css/heart.css";
+import "../css/chat.css";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -151,8 +152,20 @@ const Home = () => {
       </div>
       </div>
       </div>
-      <div className="col-sm-4">
-        ddd
+      <div className="col-sm-8">
+      <div className="chat-container">
+      {/* Messages Section */}
+      <div className="chat-box">
+        <div className="message other">Hey! How's it going?</div>
+        <div className="message me">All good! What about you?</div>
+      </div>
+
+      {/* Input Field */}
+      <div className="chat-input">
+        <input type="text" placeholder="Type a message..." />
+        <button>Send</button>
+      </div>
+    </div>
         </div>
      </div>
      
