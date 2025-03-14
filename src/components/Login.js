@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';  // Optional, you can use fetch as well
 import "../css/login.css";
+import logo from '../assets/images/logo.png';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Example API endpoint, change to your actual endpoint
     const apiUrl = 'http://127.0.0.1:8000/api/login';
 
@@ -35,9 +36,11 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      {error && <p className="error-message">{error}</p>}
+    <div className='container d-flex justify-content-center align-items-center vh-100'>
+    <div className="login-container ">
+      <a href="/">
+        <img className="logo" src={logo} alt="Logo" />
+      </a>       {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Email:</label>
@@ -61,7 +64,7 @@ const Login = () => {
         <br></br><br></br>
         <p>Don't have an account? <a href="/signup">Sign Up</a></p>
       </form>
-    </div>
+    </div></div>
   );
 };
 

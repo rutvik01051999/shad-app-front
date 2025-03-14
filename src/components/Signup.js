@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import "../css/login.css";
 import axios from 'axios';
+import logo from '../assets/images/logo.png';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -46,17 +47,20 @@ function Signup() {
       } catch (error) {
         console.error(error);
       }
-      navigate("/verify-otp",{ state: formData }); // Use navigate to redirect
+      navigate("/verify-otp", { state: formData }); // Use navigate to redirect
     } else {
       setErrors(validationErrors);
     }
   };
 
   return (
+    <div className='container d-flex justify-content-center align-items-center vh-100'>
+
     <div className="login-container">
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-      <div className="form-group">
+      <a href="/">
+        <img className="logo" src={logo} alt="Logo" />
+      </a>     <form onSubmit={handleSubmit}>
+        <div className="form-group">
           <label>Name:</label>
           <input
             type="text"
@@ -102,7 +106,7 @@ function Signup() {
         <br></br><br></br>
         <p>Already have an account? <a href="/login">Login</a></p>
       </form>
-    </div>
+    </div></div>
   );
 }
 

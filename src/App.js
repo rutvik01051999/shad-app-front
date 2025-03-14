@@ -37,8 +37,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
      
       
       <Routes>
-      <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
-       <Route path="/signup" element={<Signup/>} />
        <Route path="/verify-otp" element={<OtpVerification/>} />
       
         {/* Define the layout and its nested routes */}
@@ -46,7 +44,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
           <Route index element={<Home />} /> {/* Default route for the layout */}
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
-          
+          <Route path="login" element={<AuthRoute><Login /></AuthRoute>} />
+          <Route path="/signup" element={<Signup/>} />
+
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="notfound" element={<NotFound />} />
 

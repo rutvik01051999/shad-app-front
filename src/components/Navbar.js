@@ -38,6 +38,15 @@ const NavigationBar = () => {
               Contact
             </NavLink>
           </Nav.Item>
+          <Nav.Item>
+            <NavLink
+              to="/login"
+              className="nav-link"
+              activeClassName="active"
+            >
+              Contact
+            </NavLink>
+          </Nav.Item>
         </Nav>
       </Navbar.Collapse>
     </Container>
