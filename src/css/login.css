@@ -79,3 +79,7 @@
     width: 100px;
     height: 100px;
   }
+
+  #root {
+    background-color: #f8d7da; /* Light reddish background */
+   }

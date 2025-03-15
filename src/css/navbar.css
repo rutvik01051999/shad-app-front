@@ -39,3 +39,9 @@
     background-color: white !important;
     color: red !important;
   }
+  body, html {
+    overflow-x: hidden;
+  }
+  .nav-link{
+    padding: 10px !important;
+  }

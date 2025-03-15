@@ -23,7 +23,6 @@ const Layout = () => {
   return (
     <div>
       {/* Common Layout: Header */}
-      <Container fluid>
         <Navbar expand="lg" className="custom-navbar">
           <Container>
             <Navbar.Brand as={Link} to="/" className="navbar-brand">
@@ -79,20 +78,15 @@ const Layout = () => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-      </Container>
 
       {/* Outlet to render matched child route component */}
       <main>
-        <Container fluid>
           <Outlet />
-        </Container>
       </main>
 
-      <Container fluid>
         <footer className="footer">
           <p>&copy; {new Date().getFullYear()} LoveConnect. All rights reserved.</p>
         </footer>
-      </Container>
     </div>
   );
 };

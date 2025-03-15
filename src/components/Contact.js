@@ -3,15 +3,52 @@ import "../css/contact.css";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validate = () => {
+    let tempErrors = {};
+    if (!formData.name.trim()) tempErrors.name = "Name is required";
+    if (!formData.email) {
+      tempErrors.email = "Email is required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+      tempErrors.email = "Invalid email format";
+    }
+    if (!formData.message.trim()) tempErrors.message = "Message is required";
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Message Sent! We will get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    if (!validate()) return;
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/contact/store", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+      
+      alert("Message Sent! We will get back to you soon.");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      alert("Error sending message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -32,27 +69,32 @@ const Contact = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            required
+            
           />
+          {errors.name && <span className="error">{errors.name}</span>}
 
           <label>Email:</label>
           <input
-            type="email"
+            type="text"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            required
+            
           />
+          {errors.email && <span className="error">{errors.email}</span>}
 
           <label>Message:</label>
           <textarea
             name="message"
             value={formData.message}
             onChange={handleChange}
-            required
+            
           ></textarea>
+          {errors.message && <span className="error">{errors.message}</span>}
 
-          <button type="submit">Send Message</button>
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Sending..." : "Send Message"}
+          </button>
         </form>
       </section>
     </div>
