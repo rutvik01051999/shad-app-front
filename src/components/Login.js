@@ -10,6 +10,35 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      async function (position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+
+        // const placedata = {
+        //   location: [latitude, longitude],
+        // };
+  
+        setLatitude(latitude);
+        setLongitude(longitude);
+  
+        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+      },
+      function (error) {
+        console.error('Error getting location: ', error);
+      }
+    );
+  } else {
+    console.error('Geolocation is not supported by this browser.');
+  }
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -20,6 +49,7 @@ const Login = () => {
       const response = await axios.post(apiUrl, {
         email: email,
         password: password,
+        location: [latitude, longitude],
       });
 
       // Assuming the API response has a token

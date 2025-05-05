@@ -10,7 +10,8 @@ import NotFound from "../src/components/NotFound";
 import Signup from "../src/components/Signup";
 import OtpVerification from "../src/components/OtpVerification";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 
 /*************  ✨ Codeium Command ⭐  *************/

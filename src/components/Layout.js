@@ -70,6 +70,16 @@ const Layout = () => {
                       <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
+                  
+                )}
+
+{user && (
+                  <Nav.Item>
+                    <NavLink to="/login" className="nav-link" activeClassName="active">
+                      Notifications
+                    </NavLink>
+                  </Nav.Item>
+
                 )}
 
 

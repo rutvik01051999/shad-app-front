@@ -69,4 +69,10 @@
     padding: 20px;
     margin-top: 40px;
   }
+  .error{
+    color: red;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
   

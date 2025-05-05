@@ -5,37 +5,25 @@ import { AuthContext } from "./AuthContext";
 import "../css/swipecard.css";
 import "../css/heart.css";
 import "../css/chat.css";
-
+import DatingSlider from './DatingSlider';
+import Offer from './Offer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 const Home = () => {
   const { user } = useContext(AuthContext);
-  const [showChat, setShowChat] = useState(false); // State to toggle chat UI
-
-  const data = [
-    { title: 'John Doe', description: 'A passionate coder from Reactville.' },
-    { title: 'Jane Smith', description: 'Loves photography and traveling.' },
-    { title: 'Michael Johnson', description: 'Enjoys hiking and outdoor activities.' },
-    { title: 'Emily Davis', description: 'Web designer and tech enthusiast.' },
-  ];
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [x, setX] = useState(0);
   const [animate, setAnimate] = useState(false);
-
-  const handleSwipe = (direction) => {
-    setX(direction === 'right' ? 500 : -500);
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-      setX(0);
-    }, 300);
-  };
-
-  if (currentIndex >= data.length) {
-    return <h2>No more cards!</h2>;
-  }
-
-  const card = data[currentIndex];
 
   return (
     <>
+      {user && (
+        <>
+          <DatingSlider />
+          <Offer />
+        </>
+      )}
+
+
       <div className={`heart ${animate ? 'animate' : ''}`}>❤️</div>
 
       {!user && (
@@ -83,72 +71,6 @@ const Home = () => {
           </section>
         </div>
       )}
-
-      <div className="home-container">
-        <div className="row">
-          <div className="col-sm-4">
-            <div className="swipe-card-container">
-              <div
-                className="swipe-card"
-                style={{ transform: `translateX(${x}px)` }}
-                onMouseDown={(e) => {
-                  const startX = e.clientX;
-
-                  const onMouseMove = (moveEvent) => {
-                    const moveX = moveEvent.clientX - startX;
-                    setX(moveX);
-                  };
-
-                  const onMouseUp = () => {
-                    if (x > 150) {
-                      handleSwipe('right');
-                    } else if (x < -150) {
-                      handleSwipe('left');
-                    } else {
-                      setX(0);
-                    }
-
-                    document.removeEventListener('mousemove', onMouseMove);
-                    document.removeEventListener('mouseup', onMouseUp);
-                  };
-
-                  document.addEventListener('mousemove', onMouseMove);
-                  document.addEventListener('mouseup', onMouseUp);
-                }}
-              >
-                <div className="swipe-card-content">
-                  <h2>{card.title}</h2>
-                  <p>{card.description}</p>
-                </div>
-                <div className="swipe-buttons">
-                  <button onClick={() => handleSwipe('left')} className="left-btn">❌</button>
-                  <button onClick={() => handleSwipe('right')} className="right-btn">✅</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-8">
-            {/* Chat Icon Button */}
-            <button className="chat-toggle-btn" onClick={() => setShowChat(!showChat)}>
-              💬 Chat
-            </button>
-            
-            {/* Chat UI - Only Visible When showChat is True */}
-            {showChat && (
-              <div className="chat-container">
-                <div className="chat-box">
-                  <div className="message other">Hey! How's it going?</div>
-                  <div className="message me">All good! What about you?</div>
-                </div>
-                <div className="chat-input">
-                  <input type="text" placeholder="Type a message..." />
-                  <button>Send</button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
     </>
   );
 };

@@ -45,3 +45,12 @@
   .nav-link{
     padding: 10px !important;
   }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body, html {
+    height: 100%; /* Make sure the body and html take the full height */
+  }

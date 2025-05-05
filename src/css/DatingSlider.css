@@ -1,0 +1,17 @@
+.profile-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .profile-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .profile-card img {
+    height: 250px;
+    object-fit: cover;
+  }
+  .card{
+    width: auto;
+  }
