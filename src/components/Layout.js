@@ -2,7 +2,7 @@
 import { Outlet, Link, NavLink, useNavigate } from "react-router-dom";
 import { Navbar, Container, Nav, Dropdown } from "react-bootstrap";
 import "../css/navbar.css";
-import { FaHeart, FaUserCircle } from 'react-icons/fa'; // Import the heart icon from react-icons
+import { FaHeart, FaUserCircle ,FaBell } from 'react-icons/fa'; // Import the heart icon from react-icons
 import { AuthContext } from "./AuthContext";
 import { useContext } from "react";
 
@@ -74,11 +74,27 @@ const Layout = () => {
                 )}
 
 {user && (
-                  <Nav.Item>
-                    <NavLink to="/login" className="nav-link" activeClassName="active">
-                      Notifications
-                    </NavLink>
-                  </Nav.Item>
+                 <Nav.Item>
+                 <NavLink
+                   to="/login"
+                   className={({ isActive }) =>
+                     `nav-link d-flex align-items-center position-relative ${isActive ? 'active' : ''}`
+                   }
+                   style={{ fontSize: '1.1rem' }} // optional text size
+                 >
+                   <FaBell style={{ fontSize: '1.5rem' }} /> {/* Bigger icon */}
+               
+                   {/* Notification badge */}
+                   <span
+                     className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                     style={{ fontSize: '0.7rem' }}
+                   >
+                     5
+                   </span>
+               
+                  
+                 </NavLink>
+               </Nav.Item>
 
                 )}
 

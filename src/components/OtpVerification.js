@@ -37,20 +37,20 @@ function OtpVerification() {
         name: formData.name,
         password: formData.password
       });
-      const token = response.data.token;
-      localStorage.setItem('token', token);
-
+      if(response.data.status == true){
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        navigate("/profile"); // Redirect to the dashboard or main page after OTP verification
+      }
       console.log(response);
     } catch (error) {
       console.error(error);
     }
-
-    // Here, you would send the OTP to your backend for verification
-    // Assuming OTP verification is successful:
-    navigate("/profile"); // Redirect to the dashboard or main page after OTP verification
+  
   };
 
   return (
+    <div className="container d-flex justify-content-center align-items-center vh-100">
     <div className="otp-verification-container login-container">
       <h2>Verify OTP</h2>
       <form onSubmit={handleSubmit}>
@@ -77,6 +77,7 @@ function OtpVerification() {
         <p>Email: {formData.email}</p>
       </div> */}
     </div>
+    </div>  
   );
 }
 
