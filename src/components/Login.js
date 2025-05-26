@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';  // Optional, you can use fetch as well
 import "../css/login.css";
 import logo from '../assets/images/logo.png';
+import { API } from '../api';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -43,7 +44,7 @@ const Login = () => {
     e.preventDefault();
 
     // Example API endpoint, change to your actual endpoint
-    const apiUrl = 'http://127.0.0.1:8000/api/login';
+    const apiUrl = API.LOGIN;
 
     try {
       const response = await axios.post(apiUrl, {

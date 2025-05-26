@@ -52,7 +52,9 @@ const Profile = () => {
           name: userData.name || '',
           active: userData.active || true,
         });
+        if(userData.profile_image) {
         setPreviewImage('http://127.0.0.1:8000/storage/' + userData.profile_image || null);
+        }
       } catch (error) {
         console.error('Error fetching user details:', error);
       } finally {
