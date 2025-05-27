@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import '../css/DatingSlider.css'; // Import your CSS file for styling
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faTimes ,faFilter } from '@fortawesome/free-solid-svg-icons';
 import { API } from '../api';
 
 
@@ -82,6 +82,7 @@ const DatingSlider = () => {
   return (
     <div className="container my-5">
       <h2 className="text-center mb-4">Meet New People</h2>
+      <span> <FontAwesomeIcon icon={faFilter} size="lg" /></span>
       <Slider {...settings}>
         {users.map(user => (
           <div key={user.id} className="p-3">
