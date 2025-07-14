@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';  // Optional, you can use fetch as well
 import "../css/login.css";
 import logo from '../assets/images/logo.png';
 import { API } from '../api';
+import { AuthContext } from './AuthContext';
 
 const Login = () => {
+  const { checkUserAuth } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -25,10 +27,10 @@ const Login = () => {
         // const placedata = {
         //   location: [latitude, longitude],
         // };
-  
+
         setLatitude(latitude);
         setLongitude(longitude);
-  
+
         console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
       },
       function (error) {
@@ -58,7 +60,7 @@ const Login = () => {
 
       // Store the token in localStorage
       localStorage.setItem('token', token);
-
+      checkUserAuth()
       // Redirect to profile page
       navigate('/profile');
     } catch (err) {
@@ -68,34 +70,34 @@ const Login = () => {
 
   return (
     <div className='container d-flex justify-content-center align-items-center vh-100'>
-    <div className="login-container ">
-      <a href="/">
-        <img className="logo" src={logo} alt="Logo" />
-      </a>       {error && <p className="error-message">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="login-button">Login</button>
-        <br></br><br></br>
-        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
-      </form>
-    </div></div>
+      <div className="login-container ">
+        <a href="/">
+          <img className="logo" src={logo} alt="Logo" />
+        </a>       {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="login-button">Login</button>
+          <br></br><br></br>
+          <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+        </form>
+      </div></div>
   );
 };
 
