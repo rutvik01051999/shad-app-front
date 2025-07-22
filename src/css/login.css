@@ -11,6 +11,14 @@
     left: 50%; */
     /* transform: translate(-50%, -50%); */
   }
+  .sign-login-container {
+    width: 850px; /* Increase form width */
+    padding: 30px;
+    background: #ffdddd; /* Light red background */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    text-align: center;
+  }
   
   /* Headings */
   h2 {
@@ -60,7 +68,7 @@
   
   /* Login button */
   .login-button {
-    width: 100%;
+    width: 70%;
     padding: 12px;
     background: #cc0000;
     color: white;
@@ -82,4 +90,7 @@
 
   #root {
     background-color: #f8d7da; /* Light reddish background */
+   }
+   .react-datepicker-wrapper{
+    width: 100%;
    }

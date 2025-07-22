@@ -35,7 +35,12 @@ function OtpVerification() {
         email: formData.email,
         otp: otp,
         name: formData.name,
-        password: formData.password
+        last_name: formData.last_name,
+        password: formData.password,
+        gender_id:formData.gender_id,
+        country_id: formData.country_id,
+        state_id: formData.state_id,
+        city_id: formData.city_id,
       });
       if(response.data.status == true){
         const token = response.data.token;

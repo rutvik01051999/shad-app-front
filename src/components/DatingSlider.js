@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import '../css/DatingSlider.css'; // Import your CSS file for styling
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faTimes ,faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faTimes, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { API } from '../api';
 
 
@@ -82,46 +82,54 @@ const DatingSlider = () => {
   return (
     <div className="container my-5">
       <h2 className="text-center mb-4">Meet New People</h2>
+      {users.length >= 2 && (
       <span> <FontAwesomeIcon icon={faFilter} size="lg" /></span>
-      <Slider {...settings}>
-        {users.map(user => (
-          <div key={user.id} className="p-3">
-            <div className="card profile-card shadow-sm position-relative">
-              <img src={user.image_url} className="card-img-top" alt={user.name} />
-              <div className="card-body text-center">
-                <h5 className="card-title">{user.name}, {user.age}</h5>
-                <p className="card-text">{user.bio}</p>
-                {userActions[user.id] === 0 && (
-                  <p className="mt-3 text-danger fw-bold">You have passed this user.</p>
-                )}
+      )}
+      {users.length <= 2 && (
+        <p className="text-center text-muted mt-4">No nearby users available right now.</p>
+      )}
 
-                {userActions[user.id] === 1 && (
-                  <p className="mt-3 text-success fw-bold">You like this user!</p>
-                )}
-                {!userActions.hasOwnProperty(user.id) && (
-                  <div className="d-flex justify-content-center gap-4 mt-3">
+      {users.length >= 2 && (
+        <Slider {...settings}>
+          {users.map(user => (
+            <div key={user.id} className="p-3">
+              <div className="card profile-card shadow-sm position-relative">
+                <img src={user.image_url} className="card-img-top" alt={user.name} />
+                <div className="card-body text-center">
+                  <h5 className="card-title">{user.name}, {user.age}</h5>
+                  <p className="card-text">{user.bio}</p>
 
+                  {userActions[user.id] === 0 && (
+                    <p className="mt-3 text-danger fw-bold">You have passed this user.</p>
+                  )}
 
-                    <button
-                      className="btn btn-outline-danger rounded-circle"
-                      onClick={() => handlePass(user.id)}
-                    >
-                      <FontAwesomeIcon icon={faTimes} size="lg" />
-                    </button>
-                    <button
-                      className="btn btn-outline-success rounded-circle"
-                      onClick={() => handleAccept(user.id)}
-                    >
-                      <FontAwesomeIcon icon={faHeart} size="lg" />
-                    </button>
+                  {userActions[user.id] === 1 && (
+                    <p className="mt-3 text-success fw-bold">You like this user!</p>
+                  )}
 
-
-                  </div>)}
+                  {!userActions.hasOwnProperty(user.id) && (
+                    <div className="d-flex justify-content-center gap-4 mt-3">
+                      <button
+                        className="btn btn-outline-danger rounded-circle"
+                        onClick={() => handlePass(user.id)}
+                      >
+                        <FontAwesomeIcon icon={faTimes} size="lg" />
+                      </button>
+                      <button
+                        className="btn btn-outline-success rounded-circle"
+                        onClick={() => handleAccept(user.id)}
+                      >
+                        <FontAwesomeIcon icon={faHeart} size="lg" />
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </Slider>
+          ))}
+        </Slider>
+      )}
+
     </div>
   );
 };

@@ -8,6 +8,7 @@ import Login from "../src/components/Login";
 import Profile from "../src/components/Profile";
 import NotFound from "../src/components/NotFound";
 import Signup from "../src/components/Signup";
+import Signup2 from "../src/components/Signup2";
 import OtpVerification from "../src/components/OtpVerification";
 import Chat from "../src/components//Chat";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -40,6 +41,7 @@ import "slick-carousel/slick/slick-theme.css";
       
       <Routes>
        <Route path="/verify-otp" element={<OtpVerification/>} />
+       
       
         {/* Define the layout and its nested routes */}
         <Route path="/" element={<Layout />}>
@@ -48,6 +50,7 @@ import "slick-carousel/slick/slick-theme.css";
           <Route path="contact" element={<Contact />} />
           <Route path="login" element={<AuthRoute><Login /></AuthRoute>} />
           <Route path="/signup" element={<Signup/>} />
+          <Route path="/signup2" element={<Signup2/>} />
           <Route path="/chat" element={<Chat/>} />
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="notfound" element={<NotFound />} />

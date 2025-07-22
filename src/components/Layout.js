@@ -73,7 +73,31 @@ const Layout = () => {
 
               )}
 
-              {user && (
+
+               {user && (
+                <Dropdown align="end">
+                  <Dropdown.Toggle variant="link" id="dropdown-user" className="text-white">
+                    <FaBell style={{ fontSize: "24px", color: "white" }} />
+                     <span
+                        className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                        style={{ fontSize: '0.7rem' }}
+                      >
+                        5
+                      </span>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu style={{ minWidth: '250px' }}>
+                    <Dropdown.Header>Notifications</Dropdown.Header>
+                    <Dropdown.Item href="#">🔔 New blog published</Dropdown.Item>
+                    <Dropdown.Item href="#">✅ Profile updated</Dropdown.Item>
+                    <Dropdown.Item href="#">💡 New feature available</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item href="#">View all</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+
+              )}
+
+              {/* {user && (
                 <Dropdown align="end">
                   <Dropdown.Toggle
                     variant="link"
@@ -102,7 +126,7 @@ const Layout = () => {
                   </Dropdown.Menu>
                 </Dropdown>
 
-              )}
+              )} */}
 
               {user && (
                 <Nav.Item>

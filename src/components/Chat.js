@@ -22,10 +22,37 @@ const users = [
   },
 ];
 
+const initialRequests = [
+  {
+    id: 4,
+    name: 'David',
+    image: 'https://i.pravatar.cc/40?img=4',
+    message: 'Hi, can we chat?',
+  },
+  {
+    id: 5,
+    name: 'Eva',
+    image: 'https://i.pravatar.cc/40?img=5',
+    message: 'Hello, I’d like to connect!',
+  },
+];
+
 function Chat() {
-   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [messageInput, setMessageInput] = useState('');
   const [messages, setMessages] = useState({});
+  const [requests, setRequests] = useState(initialRequests);
+
+  const handleAccept = (user) => {
+    setRequests((prev) => prev.filter((r) => r.id !== user.id));
+    // Optionally add accepted user to chat user list
+    users.push(user); // not ideal in production; should be part of state
+  };
+
+  const handleDecline = (user) => {
+    setRequests((prev) => prev.filter((r) => r.id !== user.id));
+  };
+
 
   const sendMessage = () => {
     if (!messageInput.trim()) return;
@@ -56,6 +83,8 @@ function Chat() {
           </div>
         ))}
       </div>
+
+      
 
       {/* Chat Panel */}
       <div className="chat-panel">
@@ -95,6 +124,29 @@ function Chat() {
           <div className="empty-chat">Select a user to start chatting</div>
         )}
       </div>
+
+       <div className="requests-panel">
+    <h4>Requests</h4>
+    {requests.length === 0 ? (
+      <div className="no-requests">No pending requests</div>
+    ) : (
+      requests.map((req) => (
+        <div key={req.id} className="request-item">
+          <img src={req.image} alt={req.name} className="user-avatar" />
+          <div>
+            <div className="user-name">{req.name}</div>
+            <div className="last-message">{req.message}</div>
+            <div className="request-actions">
+              <button onClick={() => handleAccept(req)}>Accept</button>
+              <button onClick={() => handleDecline(req)}>Decline</button>
+            </div>
+          </div>
+        </div>
+      ))
+    )}
+  </div>
+
+
     </div>
   );
 }
