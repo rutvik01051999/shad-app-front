@@ -9,5 +9,6 @@ export const API = {
   CREATE_CHAT: `${BASE_URL}/chats/create`,
   SEND_MESSAGE: `${BASE_URL}/messages/send`,
   SEND_REQUEST: `${BASE_URL}/profile/sent/request`,
- 
+  RECIVE_REQUEST: `${BASE_URL}/request/list`,
+  ACCEPT_REQUEST: `${BASE_URL}/request/accept`,
 };

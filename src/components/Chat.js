@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../css/chat_new.css";
+import { API } from '../api';
+import axios from 'axios';
+
+
+const apiUrl = API.RECIVE_REQUEST;
+const apiAcceptUser = API.ACCEPT_REQUEST;
 
 const users = [
   {
@@ -22,35 +28,85 @@ const users = [
   },
 ];
 
-const initialRequests = [
-  {
-    id: 4,
-    name: 'David',
-    image: 'https://i.pravatar.cc/40?img=4',
-    message: 'Hi, can we chat?',
-  },
-  {
-    id: 5,
-    name: 'Eva',
-    image: 'https://i.pravatar.cc/40?img=5',
-    message: 'Hello, I’d like to connect!',
-  },
-];
 
 function Chat() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [messageInput, setMessageInput] = useState('');
   const [messages, setMessages] = useState({});
-  const [requests, setRequests] = useState(initialRequests);
+  const [requests, setRequests] = useState([]);
+  const token = localStorage.getItem('token');
 
-  const handleAccept = (user) => {
-    setRequests((prev) => prev.filter((r) => r.id !== user.id));
-    // Optionally add accepted user to chat user list
-    users.push(user); // not ideal in production; should be part of state
+
+  useEffect(() => {
+    axios.get(apiUrl, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        setRequests(response.data.data);
+        console.log("Requests fetched:", response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching requests:', error);
+      });
+  }, []);
+
+
+  const handleAccept = (req) => {
+    console.log("Accepted user:", req);
+
+    const token = localStorage.getItem('token');
+
+
+    axios.post(apiAcceptUser, {
+      id: req.id,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      }
+    })
+      .then((response) => {
+        console.log("Request accepted on server:", response.data);
+
+        // Remove from requests
+        setRequests((prev) => prev.filter((r) => r.id !== req.id));
+
+        // Add to chat user list
+        const acceptedUser = {
+          id: req.user.id,
+          name: req.user.first_name,
+          image: `http://127.0.0.1:8000/storage/${req.user.profile_image}`,
+          lastMessage: '',
+        };
+
+        users.push(acceptedUser); // Note: not reactive — consider using state
+      })
+      .catch((error) => {
+        console.error("Error accepting request:", error);
+        // Optionally show error to user
+      });
   };
 
+
+  // const handleAccept = (req) => {
+  //   console.log("Accepted user:", req);
+  //   setRequests((prev) => prev.filter((r) => r.id !== req.id));
+  //   const acceptedUser = {
+  //     id: req.user.id,
+  //     name: req.user.first_name,
+  //     image: `http://127.0.0.1:8000/storage/${req.user.profile_image}`,
+  //     lastMessage: '', 
+  //     };
+
+
+  //     users.push(acceptedUser);
+  // };
+
   const handleDecline = (user) => {
-    setRequests((prev) => prev.filter((r) => r.id !== user.id));
+    setRequests((prev) => prev.filter((r) => r.id !== user));
   };
 
 
@@ -84,7 +140,7 @@ function Chat() {
         ))}
       </div>
 
-      
+
 
       {/* Chat Panel */}
       <div className="chat-panel">
@@ -125,26 +181,26 @@ function Chat() {
         )}
       </div>
 
-       <div className="requests-panel">
-    <h4>Requests</h4>
-    {requests.length === 0 ? (
-      <div className="no-requests">No pending requests</div>
-    ) : (
-      requests.map((req) => (
-        <div key={req.id} className="request-item">
-          <img src={req.image} alt={req.name} className="user-avatar" />
-          <div>
-            <div className="user-name">{req.name}</div>
-            <div className="last-message">{req.message}</div>
-            <div className="request-actions">
-              <button onClick={() => handleAccept(req)}>Accept</button>
-              <button onClick={() => handleDecline(req)}>Decline</button>
+      <div className="requests-panel">
+        <h4>Requests</h4>
+        {requests.length === 0 ? (
+          <div className="no-requests">No pending requests</div>
+        ) : (
+          requests.map((req) => (
+            <div key={req.id} className="request-item">
+              <img src={`http://127.0.0.1:8000/storage/${req.user.profile_image}`} alt={req.user.first_name} className="user-avatar" />
+              <div>
+                <div className="user-name">{req.user.first_name}</div>
+                <div className="last-message">{req.message}</div>
+                <div className="request-actions">
+                  <button onClick={() => handleAccept(req)}>Accept</button>
+                  <button onClick={() => handleDecline(req.id)}>Decline</button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ))
-    )}
-  </div>
+          ))
+        )}
+      </div>
 
 
     </div>

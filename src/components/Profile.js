@@ -52,8 +52,8 @@ const Profile = () => {
           name: userData.name || '',
           active: userData.active || true,
         });
-        if(userData.profile_image) {
-        setPreviewImage('http://127.0.0.1:8000/storage/' + userData.profile_image || null);
+        if (userData.profile_image) {
+          setPreviewImage('http://127.0.0.1:8000/storage/' + userData.profile_image || null);
         }
       } catch (error) {
         console.error('Error fetching user details:', error);
@@ -235,27 +235,74 @@ const Profile = () => {
             <div className="profile-form-container p-4 shadow rounded">
               {/* Profile Image Preview */}
               <div className="text-center mb-4">
-                <div className="profile-image-container">
+                <input
+                  type="file"
+                  name="profile_image"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  ref={(ref) => (window.imageInputRef = ref)} // expose ref globally for click
+                  style={{ display: 'none' }}
+                />
+
+                <div
+                  className="profile-image-wrapper"
+                  onClick={() => window.imageInputRef?.click()}
+                  style={{
+                    width: 150,
+                    height: 150,
+                    border: '2px dashed #ccc',
+                    borderRadius: 8,
+                    cursor: 'pointer',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: 'auto'
+                  }}
+                >
                   {previewImage ? (
                     <>
                       <img
                         src={previewImage}
-                        alt="Profile Preview"
-                        className="profile-image"
+                        alt="Preview"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          borderRadius: 8
+                        }}
                       />
                       <button
-                        type="button"
-                        className="btn btn-danger btn-sm mt-2"
-                        onClick={handleRemoveImage}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRemoveImage();
+                        }}
+                        style={{
+                          position: 'absolute',
+                          top: 5,
+                          right: 5,
+                          background: 'rgba(0,0,0,0.6)',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '50%',
+                          width: 24,
+                          height: 24,
+                          cursor: 'pointer',
+                          fontWeight: 'bold',
+                          lineHeight: '1',
+                        }}
+                        title="Remove"
                       >
-                        Remove
+                        ✖
                       </button>
                     </>
                   ) : (
-                    <div className="profile-placeholder">+</div>
+                    <span style={{ fontSize: 40, color: '#ccc' }}>+</span>
                   )}
                 </div>
               </div>
+
 
               {/* <h2 className="text-center mb-4">Edit Profile</h2> */}
 
@@ -395,12 +442,12 @@ const Profile = () => {
                   )}
 
                   {/* Profile Image Upload */}
-                  <div className="col-md-12">
+                  {/* <div className="col-md-12">
                     <div className="form-group">
                       <label>Profile Image</label>
                       <input type="file" name="profile_image" onChange={handleImageChange} className="form-control" />
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Submit Button */}
                   <div className="col-md-12 text-center">

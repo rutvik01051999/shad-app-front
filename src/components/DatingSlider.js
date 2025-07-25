@@ -85,7 +85,7 @@ const DatingSlider = () => {
       {users.length >= 2 && (
       <span> <FontAwesomeIcon icon={faFilter} size="lg" /></span>
       )}
-      {users.length <= 2 && (
+      {users.length <= 1 && (
         <p className="text-center text-muted mt-4">No nearby users available right now.</p>
       )}
 
@@ -96,7 +96,7 @@ const DatingSlider = () => {
               <div className="card profile-card shadow-sm position-relative">
                 <img src={user.image_url} className="card-img-top" alt={user.name} />
                 <div className="card-body text-center">
-                  <h5 className="card-title">{user.name}, {user.age}</h5>
+                  <h5 className="card-title">{user.user_id}, {user.user_id}</h5>
                   <p className="card-text">{user.bio}</p>
 
                   {userActions[user.id] === 0 && (
@@ -107,17 +107,17 @@ const DatingSlider = () => {
                     <p className="mt-3 text-success fw-bold">You like this user!</p>
                   )}
 
-                  {!userActions.hasOwnProperty(user.id) && (
+                  {!userActions.hasOwnProperty(user.user_id) && (
                     <div className="d-flex justify-content-center gap-4 mt-3">
                       <button
                         className="btn btn-outline-danger rounded-circle"
-                        onClick={() => handlePass(user.id)}
+                        onClick={() => handlePass(user.user_id)}
                       >
                         <FontAwesomeIcon icon={faTimes} size="lg" />
                       </button>
                       <button
                         className="btn btn-outline-success rounded-circle"
-                        onClick={() => handleAccept(user.id)}
+                        onClick={() => handleAccept(user.user_id)}
                       >
                         <FontAwesomeIcon icon={faHeart} size="lg" />
                       </button>

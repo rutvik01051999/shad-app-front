@@ -34,6 +34,29 @@ function Signup() {
   };
 
 
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async function (position) {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+  
+          setLatitude(latitude);
+          setLongitude(longitude);
+  
+          console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+        },
+        function (error) {
+          console.error('Error getting location: ', error);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+
+
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -135,6 +158,8 @@ function Signup() {
         const response = axios.post(apiUrl, {
           email: formData.email,
         });
+        formData.latitude = latitude; 
+        formData.longitude = longitude;
         console.log(response);
       } catch (error) {
         console.error(error);

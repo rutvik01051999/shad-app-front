@@ -12,6 +12,9 @@
   height: 120px;
   margin: 0 auto;
 }
+.profile-image-wrapper:hover {
+  border-color: #dc3545;
+}
 
 .profile-image {
   width: 100%;

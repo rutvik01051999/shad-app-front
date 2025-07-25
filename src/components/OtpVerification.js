@@ -41,6 +41,8 @@ function OtpVerification() {
         country_id: formData.country_id,
         state_id: formData.state_id,
         city_id: formData.city_id,
+        latitude: formData.latitude,
+        longitude: formData.longitude,
       });
       if(response.data.status == true){
         const token = response.data.token;
