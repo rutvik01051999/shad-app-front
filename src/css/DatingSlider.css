@@ -15,3 +15,71 @@
   .card{
     width: auto;
   }
+  .overlay-slider {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.slider-content {
+  width: 300px;
+  height: 100%;
+  background: #fff;
+  padding: 20px;
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.age-range {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.apply-btn {
+  margin-top: auto;
+  padding: 10px;
+  background: #e91e63;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.filter-icon {
+  cursor: pointer;
+  padding: 8px;
+}

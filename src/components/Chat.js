@@ -7,37 +7,40 @@ import axios from 'axios';
 const apiUrl = API.RECIVE_REQUEST;
 const apiAcceptUser = API.ACCEPT_REQUEST;
 
-const users = [
-  {
-    id: 1,
-    name: 'Alice',
-    image: 'https://i.pravatar.cc/40?img=1',
-    lastMessage: 'Hey, how are you?',
-  },
-  {
-    id: 2,
-    name: 'Bob',
-    image: 'https://i.pravatar.cc/40?img=2',
-    lastMessage: 'Let’s meet tomorrow!',
-  },
-  {
-    id: 3,
-    name: 'Charlie',
-    image: 'https://i.pravatar.cc/40?img=3',
-    lastMessage: 'I’ll send the file.',
-  },
-];
-
-
 function Chat() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [messageInput, setMessageInput] = useState('');
   const [messages, setMessages] = useState({});
   const [requests, setRequests] = useState([]);
   const token = localStorage.getItem('token');
+  const [users, setUsers] = useState([]);
 
 
   useEffect(() => {
+
+
+    axios.get('http://127.0.0.1:8000/api/accepted/list', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      }
+    })
+      .then((res) => {
+        const userList = res.data.data.map((user) => ({
+          id: user.id,
+          name: user.user.first_name,
+          image: `http://127.0.0.1:8000/storage/${user.user.profile_image}`,
+          lastMessage: user.last_message || '', // optional
+        }));
+
+        setUsers(userList);
+        console.log("Users loaded:", userList);
+      })
+      .catch((error) => {
+        console.error("Error loading users:", error);
+      });
+
+
     axios.get(apiUrl, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -125,19 +128,23 @@ function Chat() {
     <div className="chat-container">
       {/* User List */}
       <div className="user-list">
-        {users.map((user) => (
-          <div
-            key={user.id}
-            className={`user-item ${selectedUser?.id === user.id ? 'active' : ''}`}
-            onClick={() => setSelectedUser(user)}
-          >
-            <img src={user.image} alt={user.name} className="user-avatar" />
-            <div>
-              <div className="user-name">{user.name}</div>
-              <div className="last-message">{user.lastMessage}</div>
+        {users.length === 0 ? (
+          <div className="no-users">No users available</div>
+        ) : (
+          users.map((user) => (
+            <div
+              key={user.id}
+              className={`user-item ${selectedUser?.id === user.id ? 'active' : ''}`}
+              onClick={() => setSelectedUser(user)}
+            >
+              <img src={user.image} alt={user.name} className="user-avatar" />
+              <div>
+                <div className="user-name">{user.name}</div>
+                <div className="last-message">{user.lastMessage}</div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
 
