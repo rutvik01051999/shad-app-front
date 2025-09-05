@@ -5,6 +5,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faTimes, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { API } from '../api';
+import { Link } from 'react-router-dom';
 
 const DatingSlider = () => {
   const [userActions, setUserActions] = useState({});
@@ -175,20 +176,24 @@ const DatingSlider = () => {
           {users.map(user => (
             <div key={user.id} className="p-3">
               <div className="card profile-card shadow-sm position-relative">
+                <Link to={`/user/${user.user_id}`}>
+
                 <img
                   src={`http://127.0.0.1:8000/storage/${user.user.profile_image}`}
                   className="card-img-top"
                   alt={user.name}
                 />
+                </Link>
+
                 <div className="card-body text-center">
                   <h5 className="card-title">{user.user_id}, {user.user_id}</h5>
                   <p className="card-text">{user.bio}</p>
 
-                  {userActions[user.id] === 0 && (
+                  {userActions[user.user.id] === 0 && (
                     <p className="mt-3 text-danger fw-bold">You have passed this user.</p>
                   )}
 
-                  {userActions[user.id] === 1 && (
+                  {userActions[user.user.id] === 1 && (
                     <p className="mt-3 text-success fw-bold">You like this user!</p>
                   )}
 

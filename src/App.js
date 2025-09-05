@@ -10,7 +10,9 @@ import NotFound from "../src/components/NotFound";
 import Signup from "../src/components/Signup";
 import Signup2 from "../src/components/Signup2";
 import OtpVerification from "../src/components/OtpVerification";
+import UserDetail from "../src/components/UserDetail";
 import Chat from "../src/components//Chat";
+import SubscriptionPlans from "../src/components/SubscriptionPlans";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -54,6 +56,8 @@ import "slick-carousel/slick/slick-theme.css";
           <Route path="/chat" element={<Chat/>} />
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="notfound" element={<NotFound />} />
+          <Route path="/plans" element={<SubscriptionPlans />} />
+          <Route path="/user/:id" element={<UserDetail />} />
 
         </Route>
       </Routes>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../bootstrap/css/style.css';
+import SubscriptionPlans from './SubscriptionPlans'; // Adjust the path if needed
 
 const Profile = () => {
   const [formData, setFormData] = useState({
@@ -230,8 +231,8 @@ const Profile = () => {
 
 
       <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-lg-8 col-md-10 col-sm-12">
+        <div className="row">
+          <div className="col-lg-9 col-md-10 col-sm-12">
             <div className="profile-form-container p-4 shadow rounded">
               {/* Profile Image Preview */}
               <div className="text-center mb-4">
@@ -457,10 +458,13 @@ const Profile = () => {
               </form>
             </div>
           </div>
+          <div className="col-lg-3 col-md-10 col-sm-12">
+          </div>
         </div>
+        <SubscriptionPlans />
       </div>
     </div>
-  );
+  )
 };
 
 export default Profile;

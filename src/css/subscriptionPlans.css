@@ -1,0 +1,136 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  position: relative;
+}
+
+/* Title styling */
+.plan-title {
+  text-align: center;
+  margin: 100px auto 50px auto;
+  z-index: 1;
+  position: relative;
+}
+
+/* Heading spacing */
+h2 {
+  margin-top: 20px;
+}
+
+h3 {
+  margin-top: 40px;
+}
+
+/* Paragraph styling */
+p {
+  margin: 20px 30px;
+  font-size: 16px;
+}
+
+/* Small text */
+small {
+  font-size: 12px;
+  color: gray;
+}
+
+.plan-badge {
+  color: #47cf73;
+  font-weight: bold;
+}
+
+/* Decorative background triangles */
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+body::before {
+  border-top: 30vw solid #47cf73;
+  border-right: 30vw solid transparent;
+  top: 0;
+  left: 0;
+}
+
+body::after {
+  border-bottom: 30vw solid black;
+  border-left: 30vw solid transparent;
+  right: 0;
+  bottom: 0;
+  transform: translateY(50px);
+}
+
+/* Card container */
+.plan-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  z-index: 1;
+  position: relative;
+}
+
+/* Plan cards */
+.plan-card {
+  background: #fff;
+  padding: 24px;
+  margin: 10px;
+  width: 300px;
+  text-align: center;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0px 14px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Special card */
+.plan-card-featured {
+  border-top: 3px solid #47cf73;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.07);
+}
+
+.plan-card-featured h3 {
+  margin-top: 20px;
+}
+
+/* Price */
+.plan-price {
+  font-size: 24px;
+  color: #333;
+  margin: 10px 0;
+}
+
+/* Subscribe button */
+.plan-button {
+  font-size: 18px;
+  font-weight: 600;
+  background: #0ebeff;
+  color: white;
+  margin: 30px auto 20px auto;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.plan-button:hover {
+  background: #47cf73;
+}

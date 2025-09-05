@@ -10,6 +10,8 @@ import Offer from './Offer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import SubscriptionPlans from './SubscriptionPlans';
+
 const Home = () => {
   const { user } = useContext(AuthContext);
   const [animate, setAnimate] = useState(false);
@@ -19,7 +21,6 @@ const Home = () => {
       {user && (
         <>
           <DatingSlider />
-          <Offer />
         </>
       )}
 
@@ -69,7 +70,9 @@ const Home = () => {
               </div>
             </div>
           </section>
+          <SubscriptionPlans />
         </div>
+        
       )}
     </>
   );
